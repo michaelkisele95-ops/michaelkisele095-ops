@@ -1,0 +1,337 @@
+/* =========================================================
+   NEXI ACADEMY — style.css
+   Token system: see :root below. Change colors/fonts there —
+   the rest of the file reads from these variables.
+   ========================================================= */
+
+:root{
+  /* --- Color: derived from the NEXI ACADEMY logo --- */
+  --ink:        #040152;   /* primary deep navy (logo background) */
+  --ink-2:      #0B1F4D;   /* lighter navy, panels & cards */
+  --ink-3:      #142A5C;   /* hover / borders on dark */
+  --gold:       #C98A2B;   /* brand gold, wordmark & primary accent */
+  --gold-light: #E7BE73;
+  --cyan:       #4FD1C5;   /* from the brain gradient */
+  --coral:      #E5533C;   /* from the brain gradient */
+  --paper:      #F3EEDD;   /* warm ivory, used sparingly for contrast */
+  --ink-text:   #E9E7F5;   /* body text on dark backgrounds */
+  --muted:      #ACA9CE;   /* secondary text on dark backgrounds */
+
+  /* --- Type --- */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Inter', -apple-system, Segoe UI, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+
+  /* --- Layout --- */
+  --wrap: 1120px;
+  --radius: 14px;
+  --gap: 28px;
+}
+
+/* =========================================================
+   Reset / base
+   ========================================================= */
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin:0;
+  background: var(--ink);
+  color: var(--ink-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img{ max-width: 100%; display:block; }
+a{ color: inherit; text-decoration: none; }
+ul, ol{ margin:0; padding:0; list-style:none; }
+h1, h2, h3{
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 .5em;
+  color: #fff;
+}
+p{ margin: 0 0 1em; }
+
+.wrap{
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.skip-link{
+  position:absolute; left:-999px; top:auto;
+  background:var(--gold); color:var(--ink); padding:10px 16px;
+  border-radius: 0 0 8px 0; z-index: 999;
+}
+.skip-link:focus{ left:0; top:0; }
+
+:focus-visible{
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   Eyebrow / labels (utility mono type)
+   ========================================================= */
+.eyebrow{
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin: 0 0 14px;
+}
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+.btn{
+  display: inline-block;
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+}
+.btn:hover{ transform: translateY(-1px); }
+.btn-gold{
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--ink);
+}
+.btn-gold:hover{ background: var(--gold-light); }
+.btn-ghost{
+  background: transparent;
+  color: var(--ink-text);
+  border: 1px solid rgba(233,231,245,.28);
+}
+.btn-ghost:hover{ border-color: var(--gold-light); color: var(--gold-light); }
+.btn-outline-light{
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  white-space: nowrap;
+}
+.btn-outline-light:hover{ background: var(--ink); color: var(--paper); }
+.btn.full{ display:block; text-align:center; width:100%; margin-top: 22px; }
+
+/* =========================================================
+   Nav
+   ========================================================= */
+.site-nav{
+  position: sticky; top:0; z-index: 100;
+  background: rgba(4, 1, 82, .78);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(233,231,245,.08);
+}
+.nav-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 14px 24px;
+}
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand-mark{ width: 34px; height:auto; }
+.brand-name{
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: .1em;
+  color: #fff;
+}
+.nav-links{ display:flex; align-items:center; gap: 30px; }
+.nav-links a{
+  font-size: 14.5px; font-weight: 500; color: var(--muted);
+  transition: color .2s ease;
+  margin-right: 30px; /* fallback for browsers without flex "gap" support */
+}
+.nav-links a:last-child{ margin-right: 0; }
+.nav-links a:hover{ color: #fff; }
+.nav-cta{
+  background: var(--gold);
+  color: var(--ink) !important;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+.nav-cta:hover{ color: var(--ink) !important; background: var(--gold-light); }
+
+.nav-toggle{
+  display:none; flex-direction:column; justify-content:center; gap:5px;
+  width: 38px; height: 38px; background:none; border:0; cursor:pointer;
+}
+.nav-toggle span{
+  display:block; height:2px; width:100%; background:#fff; border-radius:2px;
+}
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero{ padding: 96px 0 80px; overflow:hidden; }
+.hero-inner{
+  display:grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items:center;
+}
+.hero h1{
+  font-size: clamp(2.1rem, 4vw, 3.1rem);
+  max-width: 14ch;
+}
+.hero-lead{
+  color: var(--muted); font-size: 17px; max-width: 46ch;
+}
+.hero-actions{ display:flex; gap:16px; flex-wrap:wrap; margin: 28px 0 22px; }
+.hero-tagline{
+  font-family: var(--font-display); font-style: italic;
+  color: var(--gold-light); font-size: 18px; margin:0;
+}
+
+.hero-visual{ position:relative; }
+.growth-curve{ width:100%; height:auto; }
+.curve-line{
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: draw 2.1s cubic-bezier(.3,.75,.35,1) .3s forwards;
+}
+.curve-caption{
+  font-family: var(--font-mono); font-size: 12.5px; color: var(--muted);
+  text-align:center; margin-top: 10px;
+}
+@keyframes draw{ to{ stroke-dashoffset: 0; } }
+
+/* =========================================================
+   Sections
+   ========================================================= */
+.section{ padding: 88px 0; }
+.section.alt{ background: var(--ink-2); }
+.section h2{ font-size: clamp(1.7rem, 3vw, 2.3rem); max-width: 16ch; }
+.section-lead{ color: var(--muted); max-width: 60ch; font-size: 16.5px; }
+
+.two-col{
+  display:grid; grid-template-columns: 1.2fr .8fr; gap: var(--gap); align-items:start;
+}
+
+/* Cards */
+.card-grid{ display:grid; gap: var(--gap); margin-top: 44px; }
+.card-grid.three{ grid-template-columns: repeat(3, 1fr); }
+
+.card{
+  background: var(--ink-2);
+  border: 1px solid rgba(233,231,245,.08);
+  border-radius: var(--radius);
+  padding: 28px 26px;
+}
+.card h3{ font-size: 1.3rem; margin-bottom: .3em; }
+.card p{ color: var(--muted); font-size: 15px; margin-bottom:0; }
+.card-tag{
+  font-family: var(--font-mono); font-size: 12px; letter-spacing:.08em;
+  text-transform: uppercase; color: var(--gold-light); margin-bottom: 10px;
+}
+.card.outline{ background: transparent; border-color: rgba(233,231,245,.16); }
+.card.highlight{
+  background: linear-gradient(160deg, rgba(201,138,43,.16), rgba(4,1,82,0));
+  border-color: rgba(201,138,43,.45);
+}
+
+/* Steps (NEXI ONE) */
+.steps{ margin-top: 34px; display:flex; flex-direction:column; gap: 26px; }
+.steps li{ display:flex; gap: 18px; align-items:flex-start; }
+.step-index{
+  font-family: var(--font-mono); font-size: 13px; color: var(--ink);
+  background: var(--gold-light); border-radius: 999px;
+  padding: 6px 12px; flex-shrink:0; margin-top: 3px;
+}
+.steps h3{ font-size: 1.05rem; margin-bottom: .25em; }
+.steps p{ color: var(--muted); font-size: 15px; margin:0; }
+
+/* Pricing card */
+.pricing-card{
+  background: var(--ink-2);
+  border: 1px solid rgba(201,138,43,.35);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  position: sticky; top: 100px;
+}
+.price{
+  font-family: var(--font-display); font-size: 2.4rem; color:#fff; margin: 4px 0 22px;
+}
+.price span{ font-family: var(--font-body); font-size: 14px; color: var(--muted); display:block; margin-top:4px; }
+.pricing-list{ display:flex; flex-direction:column; gap: 12px; }
+.pricing-list li{
+  font-size: 14.5px; color: var(--ink-text); padding-left: 22px; position:relative;
+}
+.pricing-list li::before{
+  content:"→"; position:absolute; left:0; color: var(--gold-light);
+}
+
+/* Band (Écoles) */
+.band{ background: var(--paper); color: var(--ink); padding: 64px 0; }
+.band h2{ color: var(--ink); }
+.band p{ color: #4B4560; max-width: 55ch; }
+.band .eyebrow{ color: #8A5A17; }
+.band-inner{
+  display:flex; align-items:center; justify-content:space-between; gap: 36px; flex-wrap:wrap;
+}
+
+/* Contact cards */
+.contact-card{ transition: border-color .2s ease, transform .15s ease; }
+.contact-card:hover{ border-color: var(--gold-light); transform: translateY(-2px); }
+.contact-card h3{ font-size: 1rem; font-family: var(--font-mono); text-transform:uppercase; letter-spacing:.06em; color: var(--gold-light); }
+.contact-card p{ color: #fff; font-size: 1.05rem; margin:0; }
+.contact-location{ margin-top: 34px; color: var(--muted); font-family: var(--font-mono); font-size: 13px; }
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.site-footer{ background: var(--ink-2); padding: 44px 0; border-top: 1px solid rgba(233,231,245,.08); }
+.footer-inner{ text-align:center; display:flex; flex-direction:column; align-items:center; gap:8px; }
+.footer-inner .brand{ margin-bottom: 4px; }
+.footer-tagline{ font-family: var(--font-display); font-style: italic; color: var(--gold-light); margin:0; }
+.footer-copy{ font-size: 13px; color: var(--muted); margin:0; }
+
+/* =========================================================
+   Scroll reveal
+   ========================================================= */
+/* By default (no JS, or JS not finished yet) content is fully visible.
+   Only when the "js-enabled" class lands on <html> — added by the inline
+   script in <head>, before the page paints — do sections start hidden
+   and wait to be revealed on scroll. This means the page never depends
+   on JavaScript to be readable. */
+.js-enabled .reveal{
+  opacity: 0; transform: translateY(18px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.is-visible{ opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .reveal{ opacity:1; transform:none; transition:none; }
+  .curve-line{ animation:none; stroke-dashoffset:0; }
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 880px){
+  .nav-links{
+    position:absolute; top:100%; left:0; right:0;
+    background: var(--ink); flex-direction:column; align-items:flex-start;
+    padding: 20px 24px 28px; gap: 18px;
+    border-bottom: 1px solid rgba(233,231,245,.08);
+    display:none;
+  }
+  .nav-links.is-open{ display:flex; }
+  .nav-cta{ align-self:flex-start; }
+  .nav-toggle{ display:flex; }
+
+  .hero-inner{ grid-template-columns: 1fr; }
+  .hero{ padding: 56px 0 60px; text-align:left; }
+
+  .two-col{ grid-template-columns: 1fr; }
+  .pricing-card{ position:static; }
+
+  .card-grid.three{ grid-template-columns: 1fr; }
+
+  .band-inner{ flex-direction:column; align-items:flex-start; }
+}
+
+@media (max-width: 480px){
+  .section{ padding: 64px 0; }
+  .price{ font-size: 2rem; }
+}

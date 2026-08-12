@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add('js-enabled');</script>
+<title>NEXI ACADEMY — Teach yourself.</title>
+<meta name="description" content="NEXI ONE : le programme pilote hebdomadaire de NEXI ACADEMY. Préparation au TENAFEP et au TENASOSP, tableau d'honneur, et un Quotient de Croissance construit semaine après semaine.">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<!-- ============ NAV ============ -->
+<header class="site-nav" id="top">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <img src="assets/logo.png" alt="NEXI ACADEMY" class="brand-mark">
+      <span class="brand-name">NEXI ACADEMY</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#vision">Vision</a>
+      <a href="#nexi-one">NEXI ONE</a>
+      <a href="#croissance">Quotient de Croissance</a>
+      <a href="#ecoles">Écoles</a>
+      <a href="#contact" class="nav-cta">Nous contacter</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Phase 1 — Programme pilote</p>
+        <h1>Un rendez-vous hebdomadaire qui devient une preuve de progrès.</h1>
+        <p class="hero-lead">
+          Chaque vendredi soir, un test de 25 questions sur WhatsApp. Chaque samedi,
+          des résultats corrigés et classés. Semaine après semaine, NEXI ONE construit
+          le profil d'apprentissage de votre enfant — et le prépare concrètement au
+          TENAFEP et au TENASOSP.
+        </p>
+        <div class="hero-actions">
+          <a href="#nexi-one" class="btn btn-gold">Découvrir NEXI ONE</a>
+          <a href="#contact" class="btn btn-ghost">Nous contacter</a>
+        </div>
+        <p class="hero-tagline">Teach yourself.</p>
+      </div>
+
+      <div class="hero-visual reveal" aria-hidden="true">
+        <svg class="growth-curve" viewBox="0 0 600 200" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="var(--cyan)"/>
+              <stop offset="45%" stop-color="var(--gold)"/>
+              <stop offset="75%" stop-color="var(--coral)"/>
+              <stop offset="100%" stop-color="var(--cyan)"/>
+            </linearGradient>
+          </defs>
+          <polyline
+            class="curve-line"
+            fill="none"
+            stroke="url(#curveGradient)"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            points="0,168 55,140 95,155 150,100 205,122 255,78 315,96 370,55 430,72 480,30 540,45 600,14"
+          />
+        </svg>
+        <p class="curve-caption">Le Quotient de Croissance : une trajectoire, pas un instantané.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VISION ============ -->
+  <section class="section" id="vision">
+    <div class="wrap">
+      <p class="eyebrow reveal">Notre trajectoire</p>
+      <h2 class="reveal">Une vision qui se construit en trois temps</h2>
+      <p class="section-lead reveal">
+        NEXI ACADEMY n'est pas une application lancée du jour au lendemain. C'est un
+        écosystème que nous construisons étape par étape, pour qu'il reste solide,
+        fiable et véritablement utile aux familles congolaises.
+      </p>
+
+      <div class="card-grid three">
+        <article class="card reveal">
+          <p class="card-tag">Aujourd'hui</p>
+          <h3>NEXI ONE</h3>
+          <p>La validation. Un programme pilote humain et rigoureux : rendez-vous
+          hebdomadaire, tests alignés sur le programme national, résultats classés
+          et publiés chaque semaine.</p>
+        </article>
+        <article class="card reveal">
+          <p class="card-tag">Ensuite</p>
+          <h3>NEXI STUDIO</h3>
+          <p>La première application. Une interface moderne et autonome, utilisable
+          même hors connexion, qui capitalise sur tout ce que le pilote NEXI ONE
+          nous aura appris.</p>
+        </article>
+        <article class="card reveal">
+          <p class="card-tag">À terme</p>
+          <h3>NEXI ACADEMY</h3>
+          <p>L'écosystème complet. Progression, ligues, badges, classes, extension à
+          plusieurs matières et niveaux : la plateforme gamifiée pensée pour l'Afrique
+          francophone.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NEXI ONE ============ -->
+  <section class="section alt" id="nexi-one">
+    <div class="wrap two-col">
+      <div class="reveal">
+        <p class="eyebrow">Comment ça marche</p>
+        <h2>Le programme, semaine après semaine</h2>
+        <ol class="steps">
+          <li>
+            <span class="step-index">Ven.</span>
+            <div>
+              <h3>Le test arrive sur WhatsApp</h3>
+              <p>25 questions chronométrées : mathématiques, français, sciences ou
+              culture générale selon le programme suivi en classe, un bloc de logique,
+              et des questions rotatives de technologie et d'arts.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-index">Sam.</span>
+            <div>
+              <h3>Résultats et tableau d'honneur</h3>
+              <p>Les réponses sont corrigées, classées, et un tableau d'honneur
+              valorise les efforts fournis — pas seulement les résultats obtenus.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-index">4 sem.</span>
+            <div>
+              <h3>Un cycle, un profil qui se précise</h3>
+              <p>L'abonnement couvre un cycle de quatre semaines. À chaque cycle,
+              le profil d'apprentissage de l'enfant se construit un peu plus.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <aside class="pricing-card reveal">
+        <p class="eyebrow">Tarif pilote</p>
+        <p class="price">10&nbsp;$<span>/ enfant / cycle de 4 semaines</span></p>
+        <ul class="pricing-list">
+          <li>4 tests hebdomadaires chronométrés</li>
+          <li>Correction et classement chaque samedi</li>
+          <li>Préparation au TENAFEP et au TENASOSP</li>
+          <li>Paiement par Mobile Money, sans engagement de longue durée</li>
+        </ul>
+        <a href="#contact" class="btn btn-gold full">Inscrire mon enfant</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ QUOTIENT DE CROISSANCE ============ -->
+  <section class="section" id="croissance">
+    <div class="wrap">
+      <p class="eyebrow reveal">Au-delà du QI et du QE</p>
+      <h2 class="reveal">Le Quotient de Croissance</h2>
+      <p class="section-lead reveal">
+        Un enfant ne se résume jamais à un seul score. Là où un test isolé capture
+        un instant, le Quotient de Croissance capture une trajectoire — il progresse,
+        recule parfois, puis reprend, exactement comme un enfant.
+      </p>
+
+      <div class="card-grid three">
+        <article class="card outline reveal">
+          <h3>QI</h3>
+          <p class="card-tag">Quotient Intellectuel</p>
+          <p>La capacité à raisonner, mémoriser et résoudre des problèmes logiques.
+          La mesure la plus ancienne — et la plus incomplète, prise seule.</p>
+        </article>
+        <article class="card outline reveal">
+          <h3>QE</h3>
+          <p class="card-tag">Quotient Émotionnel</p>
+          <p>La capacité à comprendre ses émotions, gérer le stress, coopérer,
+          persévérer face à l'échec. Un facteur déterminant de la réussite durable.</p>
+        </article>
+        <article class="card highlight reveal">
+          <h3>QC</h3>
+          <p class="card-tag">Quotient de Croissance</p>
+          <p>Notre indicateur propriétaire : régularité, progression, constance et
+          résilience, mesurées chaque semaine — la preuve, dans la durée, que
+          l'enfant progresse.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ÉCOLES ============ -->
+  <section class="band" id="ecoles">
+    <div class="wrap band-inner reveal">
+      <div>
+        <p class="eyebrow">Aux directeurs et promoteurs</p>
+        <h2>Vous dirigez un établissement scolaire ?</h2>
+        <p>
+          NEXI ONE peut devenir un outil concret de préparation au TENAFEP et au
+          TENASOSP pour vos élèves, sans coût pour votre établissement dans notre
+          formule d'affiliation — avec un rapport pédagogique pour votre équipe.
+        </p>
+      </div>
+      <a href="#contact" class="btn btn-outline-light">Discuter d'un partenariat</a>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section" id="contact">
+    <div class="wrap">
+      <p class="eyebrow reveal">Parlons-en</p>
+      <h2 class="reveal">Entrer en contact avec NEXI ACADEMY</h2>
+      <p class="section-lead reveal">
+        Une question sur le programme, une inscription, un partenariat école ou
+        ambassadeur ? Écrivez-nous ou appelez directement.
+      </p>
+
+      <div class="card-grid three">
+        <a class="card contact-card reveal" href="https://wa.me/243970300731" target="_blank" rel="noopener">
+          <h3>WhatsApp</h3>
+          <p>+243 970 300 731</p>
+        </a>
+        <a class="card contact-card reveal" href="tel:+243904983794">
+          <h3>Téléphone</h3>
+          <p>+243 904 983 794</p>
+        </a>
+        <a class="card contact-card reveal" href="mailto:academynexi@gmail.com">
+          <h3>E-mail</h3>
+          <p>academynexi@gmail.com</p>
+        </a>
+      </div>
+      <p class="contact-location">République Démocratique du Congo</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <div class="brand">
+      <img src="assets/logo.png" alt="NEXI ACADEMY" class="brand-mark">
+      <span class="brand-name">NEXI ACADEMY</span>
+    </div>
+    <p class="footer-tagline">Teach yourself.</p>
+    <p class="footer-copy">&copy; <span id="year"></span> NEXI ACADEMY — République Démocratique du Congo</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

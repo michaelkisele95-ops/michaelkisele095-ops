@@ -46,7 +46,8 @@
     return fetch("/api/execute-script", { 
       method: "POST",
       headers:{"Content-type":"application/json" },
-      body: JSON.stringify({ action:"getAll"}))
+      body: JSON.stringify({ action:"getAll"})
+         })
       .then(function (res) {
         if (!res.ok) throw new Error("HTTP " + res.status);
         return res.json();

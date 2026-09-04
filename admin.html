@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NEXIONE — Panel Administrateur</title>
+<meta name="theme-color" content="#0A0A3A">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="nexi-loading-overlay" id="nexiLoadingOverlay">
+  <img src="assets/nexi-mark.png" alt="" class="nexi-loading-mark">
+  <div class="nexi-loading-spinner"></div>
+  <div class="nexi-loading-text">Chargement…</div>
+</div>
+<div class="nexi-offline-banner" id="nexiOfflineBanner"></div>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/nexi-mark.png" alt="NEXI ONE">
+      <div class="brand-text">NEXIONE<span>Panel Administrateur</span></div>
+    </div>
+    <div class="who">
+      <div style="text-align:right;">
+        <div class="name" id="whoName">—</div>
+        <div class="role">Administrateur</div>
+      </div>
+      <div class="avatar-badge" id="whoBadge">A</div>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn">Déconnexion</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <nav class="tile-nav" id="adminTiles" aria-label="Sections administrateur">
+      <button class="tile" data-panel="panel-enfants">
+        <div class="tile-icon">👦</div>
+        <div class="tile-label">Enfants</div>
+        <div class="tile-sub" id="statChildren">—</div>
+      </button>
+      <button class="tile" data-panel="panel-defis">
+        <div class="tile-icon">🏆</div>
+        <div class="tile-label">Défis</div>
+        <div class="tile-sub" id="statChallenges">—</div>
+      </button>
+      <button class="tile" data-panel="panel-affinites">
+        <div class="tile-icon">🧭</div>
+        <div class="tile-label">Affinités</div>
+        <div class="tile-sub" id="statAffinities">—</div>
+      </button>
+      <button class="tile" data-panel="panel-etablissements">
+        <div class="tile-icon">🏫</div>
+        <div class="tile-label">Établissements</div>
+        <div class="tile-sub" id="statEstablishments">—</div>
+      </button>
+      <button class="tile" data-panel="panel-reglages">
+        <div class="tile-icon">⚙️</div>
+        <div class="tile-label">Réglages</div>
+        <div class="tile-sub">Général</div>
+      </button>
+    </nav>
+
+    <!-- ===================== ENFANTS ===================== -->
+    <section class="panel" id="panel-enfants">
+      <div class="panel-head">
+        <div>
+          <h2>Enfants</h2>
+          <p class="desc">Liste de tous les enfants inscrits sur NEXIONE.</p>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-primary" id="btnAddChild">+ Ajouter / Créer un enfant</button>
+        </div>
+      </div>
+      <div class="card-grid" id="childrenGrid"></div>
+    </section>
+
+    <!-- ===================== DÉFIS ===================== -->
+    <section class="panel" id="panel-defis">
+      <div class="panel-head">
+        <div>
+          <h2>Défis</h2>
+          <p class="desc">Quiz avec bonne(s)/mauvaise(s) réponse(s). Un enfant ne peut faire un défi qu'une seule fois.</p>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-ghost" id="btnImportChallenge">Importer un défi (CSV / Excel)</button>
+          <button class="btn btn-primary" id="btnAddChallenge">+ Créer un défi (manuel)</button>
+        </div>
+      </div>
+      <div class="card-grid" id="challengesGrid"></div>
+    </section>
+
+    <!-- ===================== AFFINITÉS ===================== -->
+    <section class="panel" id="panel-affinites">
+      <div class="panel-head">
+        <div>
+          <h2>La Nexi d'affinité</h2>
+          <p class="desc">Questionnaire de préférences (ipsatif) — aucune bonne ou mauvaise réponse. Plusieurs choix possibles systématiquement.</p>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-ghost" id="btnImportAffinity">Importer (CSV / Excel)</button>
+          <button class="btn btn-primary" id="btnAddAffinity">+ Créer un test (manuel)</button>
+        </div>
+      </div>
+      <div class="card-grid" id="affinitiesGrid"></div>
+    </section>
+
+    <!-- ===================== ÉTABLISSEMENTS ===================== -->
+    <section class="panel" id="panel-etablissements">
+      <div class="panel-head">
+        <div>
+          <h2>Établissements</h2>
+          <p class="desc">Accès Superviseur (Préfet / Directeur des Études) : il suggère, vous validez.</p>
+        </div>
+        <div class="panel-actions">
+          <button class="btn btn-primary" id="btnAddEstablishment">+ Créer un Superviseur</button>
+        </div>
+      </div>
+
+      <h3 style="font-size:1rem;margin-bottom:10px;">Demandes en attente — Suggestions élèves</h3>
+      <div id="pendingRequestsList" style="margin-bottom:26px;"></div>
+
+      <h3 style="font-size:1rem;margin-bottom:10px;">Liste des établissements</h3>
+      <div class="card-grid" id="establishmentsGrid"></div>
+    </section>
+
+    <!-- ===================== RÉGLAGES ===================== -->
+    <section class="panel" id="panel-reglages">
+      <div class="panel-head">
+        <div>
+          <h2>Réglages</h2>
+          <p class="desc">Paramètres généraux de l'application.</p>
+        </div>
+      </div>
+      <div class="card" style="max-width:520px;">
+        <div class="field">
+          <label for="settingAppName">Nom affiché de l'application</label>
+          <input type="text" id="settingAppName">
+        </div>
+        <div class="switch-row" style="margin-bottom:18px;">
+          <label class="switch"><input type="checkbox" id="settingSound"><span class="slider"></span></label>
+          <span>Sons d'ambiance activés côté élève</span>
+        </div>
+        <button class="btn btn-primary btn-sm" id="btnSaveSettings">Enregistrer</button>
+      </div>
+
+      <div class="card" style="max-width:520px;margin-top:16px;">
+        <b style="font-size:.9rem;">Liaison Google Sheet</b>
+        <p class="field-hint" style="margin:6px 0 12px;">Envoi automatique des enfants, résultats de défis et d'affinités vers ton Google Sheet, pour bâtir les profils d'apprentissage et l'orientation. Configuration dans <code>config.js</code> — voir le README.</p>
+        <div id="syncStatusBox" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" id="btnTestSync">Tester la connexion</button>
+          <button class="btn btn-primary btn-sm" id="btnForceSync">Forcer une synchronisation</button>
+        </div>
+      </div>
+
+      <div class="card" style="max-width:520px;margin-top:16px;">
+        <b style="font-size:.9rem;">Zone démo</b>
+        <p class="field-hint" style="margin:6px 0 12px;" id="resetDemoHint">Réinitialise toutes les données de démonstration (localStorage) à leur état d'origine.</p>
+        <button class="btn btn-danger btn-sm" id="btnResetDemo">Réinitialiser les données de démo</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ============ Modales ============ -->
+<div class="modal-backdrop" id="modalChild">
+  <div class="modal">
+    <div class="modal-head"><h3 id="modalChildTitle">Ajouter un enfant</h3><button class="modal-close" data-close>✕</button></div>
+    <div class="field"><label>Nom de compte (vrai nom de l'enfant)</label><input type="text" id="childDisplayName"></div>
+    <div class="field-row">
+      <div class="field"><label>Identifiant (connexion + classement)</label><input type="text" id="childIdentifiant"></div>
+      <div class="field"><label>Mot de passe</label><input type="text" id="childPassword"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Établissement</label><select id="childEstablishment"><option value="">— Aucun —</option></select></div>
+      <div class="field"><label>Classe</label><select id="childClasse"></select></div>
+    </div>
+    <div id="childProfileExtra"></div>
+    <div class="modal-foot">
+      <button class="btn btn-danger btn-sm" id="btnDeleteChild" style="display:none;">Supprimer</button>
+      <button class="btn btn-ghost btn-sm" id="btnToggleBlockChild" style="display:none;"></button>
+      <button class="btn btn-primary" id="btnSaveChild">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalChallenge">
+  <div class="modal modal-lg">
+    <div class="modal-head"><h3 id="modalChallengeTitle">Créer un défi</h3><button class="modal-close" data-close>✕</button></div>
+    <div class="field-row">
+      <div class="field"><label>Titre du défi</label><input type="text" id="chalTitleInput"></div>
+      <div class="field"><label>Description</label><input type="text" id="chalDescInput"></div>
+    </div>
+    <div class="field">
+      <label>Semaine (les défis sont hebdomadaires)</label>
+      <input type="text" id="chalWeekInput" placeholder="ex : Semaine du 01/09 au 07/09/2026">
+    </div>
+    <div class="field-row">
+      <div class="switch-row"><label class="switch"><input type="checkbox" id="chalVisible" checked><span class="slider"></span></label><span>Visible</span></div>
+      <div class="switch-row"><label class="switch"><input type="checkbox" id="chalPublished"><span class="slider"></span></label><span>Publié</span></div>
+    </div>
+    <div class="field">
+      <label>Déclencheur automatique (optionnel — publication programmée)</label>
+      <input type="datetime-local" id="chalPublishAt">
+    </div>
+    <div class="field">
+      <label>Classes ciblées <span class="field-hint">(aucune sélection = visible par toutes les classes)</span></label>
+      <div class="class-checkbox-grid" id="chalClasses"></div>
+    </div>
+
+    <h4 style="margin:16px 0 8px;font-size:.95rem;">Questions</h4>
+    <div id="chalQuestions"></div>
+    <button class="btn btn-ghost btn-sm" id="btnAddQuestionChal">+ Ajouter une question</button>
+
+    <div class="modal-foot">
+      <button class="btn btn-danger btn-sm" id="btnDeleteChallenge" style="display:none;">Supprimer le défi</button>
+      <button class="btn btn-primary" id="btnSaveChallenge">Enregistrer le défi</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalImportChallenge">
+  <div class="modal">
+    <div class="modal-head"><h3>Importer un défi (CSV / Excel)</h3><button class="modal-close" data-close>✕</button></div>
+    <p class="field-hint" style="margin-bottom:12px;">Colonnes attendues : <b>Question | Option A | Option B | Option C | Option D | Bonne(s) réponse(s) | Temps (secondes)</b>. Export CSV depuis Excel/Google Sheets.</p>
+    <div class="field"><label>Titre du défi</label><input type="text" id="importChalTitle"></div>
+    <div class="field"><label>Fichier CSV</label><input type="file" id="importChalFile" accept=".csv,text/csv"></div>
+    <div id="importChalPreview" style="font-size:.82rem;color:var(--nexi-ink-soft);"></div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" id="btnConfirmImportChal" disabled>Importer</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalAffinity">
+  <div class="modal modal-lg">
+    <div class="modal-head"><h3 id="modalAffinityTitle">Créer un test d'affinité</h3><button class="modal-close" data-close>✕</button></div>
+    <div class="field-row">
+      <div class="field"><label>Titre</label><input type="text" id="affTitleInput"></div>
+      <div class="field"><label>Description</label><input type="text" id="affDescInput"></div>
+    </div>
+    <div class="field-row">
+      <div class="switch-row"><label class="switch"><input type="checkbox" id="affVisible" checked><span class="slider"></span></label><span>Visible</span></div>
+      <div class="switch-row"><label class="switch"><input type="checkbox" id="affPublished"><span class="slider"></span></label><span>Publié</span></div>
+    </div>
+    <div class="field">
+      <label>Déclencheur automatique (optionnel)</label>
+      <input type="datetime-local" id="affPublishAt">
+    </div>
+    <div class="field">
+      <label>Classes ciblées <span class="field-hint">(aucune sélection = visible par toutes les classes)</span></label>
+      <div class="class-checkbox-grid" id="affClasses"></div>
+    </div>
+
+    <h4 style="margin:16px 0 8px;font-size:.95rem;">Items (échelle 1 à 5, plusieurs choix possibles)</h4>
+    <div id="affQuestions"></div>
+    <button class="btn btn-ghost btn-sm" id="btnAddQuestionAff">+ Ajouter un item</button>
+
+    <div class="modal-foot">
+      <button class="btn btn-danger btn-sm" id="btnDeleteAffinity" style="display:none;">Supprimer</button>
+      <button class="btn btn-primary" id="btnSaveAffinity">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalImportAffinity">
+  <div class="modal">
+    <div class="modal-head"><h3>Importer des items d'affinité (CSV)</h3><button class="modal-close" data-close>✕</button></div>
+    <p class="field-hint" style="margin-bottom:12px;">Colonnes : <b>Item | Axe | Direction (pos/neg) | Temps</b>. Axes : creatif_analytique, collab_autonome, theorique_applique, leadership_support, techno_manuel, innovation_optim.</p>
+    <div class="field"><label>Titre du test</label><input type="text" id="importAffTitle"></div>
+    <div class="field"><label>Fichier CSV</label><input type="file" id="importAffFile" accept=".csv,text/csv"></div>
+    <div class="field">
+      <label>Classes ciblées <span class="field-hint">(aucune sélection = visible par toutes les classes)</span></label>
+      <div class="class-checkbox-grid" id="importAffClasses"></div>
+    </div>
+    <div id="importAffPreview" style="font-size:.82rem;color:var(--nexi-ink-soft);"></div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" id="btnConfirmImportAff" disabled>Importer</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalEstablishment">
+  <div class="modal">
+    <div class="modal-head"><h3>Créer un Superviseur</h3><button class="modal-close" data-close>✕</button></div>
+    <div class="field"><label>Nom établissement</label><input type="text" id="estName" placeholder="ex : Collège Imara"></div>
+    <div class="field"><label>Nom du superviseur</label><input type="text" id="estSupName" placeholder="ex : Préfet Kasongo"></div>
+    <div class="field-row">
+      <div class="field"><label>Identifiant superviseur</label><input type="text" id="estSupId"></div>
+      <div class="field"><label>Mot de passe superviseur</label><input type="text" id="estSupPwd"></div>
+    </div>
+    <div class="field"><label>Nombre d'élèves max autorisé</label><input type="number" id="estMax" value="50" min="1"></div>
+    <div class="modal-foot"><button class="btn btn-primary" id="btnSaveEstablishment">Créer</button></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modalResolveRequest">
+  <div class="modal">
+    <div class="modal-head"><h3>Valider la suggestion</h3><button class="modal-close" data-close>✕</button></div>
+    <div class="field"><label>Nom</label><input type="text" id="reqName"></div>
+    <div class="field-row">
+      <div class="field"><label>Classe</label><select id="reqClasse"></select></div>
+      <div class="field"><label>Identifiant</label><input type="text" id="reqIdentifiant"></div>
+    </div>
+    <input type="hidden" id="reqId">
+    <div class="modal-foot"><button class="btn btn-primary" id="btnConfirmResolve">Valider et générer le mot de passe</button></div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="js/sync.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/store.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/sw-register.js"></script>
+</body>
+</html>

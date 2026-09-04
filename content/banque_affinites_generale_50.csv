@@ -1,0 +1,51 @@
+Item;Axe;Direction;Temps
+"J'aime inventer des histoires ou imaginer des solutions originales.";creatif_analytique;pos;15
+"Je préfère dessiner, composer ou créer quelque chose de nouveau plutôt que suivre un modèle.";creatif_analytique;pos;15
+"Je trouve facilement plusieurs façons différentes de résoudre un même problème.";creatif_analytique;pos;15
+"J'aime décortiquer un problème étape par étape avant d'agir.";creatif_analytique;neg;15
+"Je me sens à l'aise quand je dois comparer des chiffres ou des données pour prendre une décision.";creatif_analytique;neg;15
+"Je préfère suivre une méthode précise plutôt que d'improviser.";creatif_analytique;neg;15
+"Je passe facilement du temps à imaginer « et si... » sans me soucier si c'est réaliste.";creatif_analytique;pos;15
+"Je vérifie toujours la logique de mon raisonnement avant de conclure.";creatif_analytique;neg;15
+"On me dit souvent que j'ai des idées originales.";creatif_analytique;pos;15
+"Je travaille mieux en équipe, en échangeant les idées avec les autres.";collab_autonome;pos;15
+"Je préfère avancer seul(e), à mon propre rythme, sans dépendre des autres.";collab_autonome;neg;15
+"J'aime organiser des activités de groupe et faire participer tout le monde.";collab_autonome;pos;15
+"Je me sens plus efficace quand je gère mes tâches sans qu'on me surveille.";collab_autonome;neg;15
+"Discuter avec d'autres m'aide à mieux comprendre un sujet.";collab_autonome;pos;15
+"Je termine plus vite un travail si je le fais moi-même plutôt qu'en groupe.";collab_autonome;neg;15
+"J'aime partager mes réussites et mes difficultés avec les autres.";collab_autonome;pos;15
+"Je préfère prendre mes propres décisions sans attendre l'avis des autres.";collab_autonome;neg;15
+"J'aime comprendre le « pourquoi » derrière une règle ou un principe.";theorique_applique;pos;15
+"Je préfère apprendre en manipulant, en testant, en pratiquant directement.";theorique_applique;neg;15
+"Lire une explication détaillée m'intéresse plus que de foncer directement à l'action.";theorique_applique;pos;15
+"Je retiens mieux quand je fais un exercice concret plutôt qu'une leçon théorique.";theorique_applique;neg;15
+"J'aime discuter d'idées abstraites, même sans application immédiate.";theorique_applique;pos;15
+"Je préfère un travail manuel ou pratique à une longue explication.";theorique_applique;neg;15
+"Je me pose souvent des questions sur le fonctionnement général des choses.";theorique_applique;pos;15
+"Je préfère apprendre en observant un exemple concret plutôt qu'une définition.";theorique_applique;neg;15
+"Je prends naturellement la tête d'un groupe pour organiser une tâche.";leadership_support;pos;15
+"Je préfère exécuter une tâche précise plutôt que diriger le groupe.";leadership_support;neg;15
+"Je me sens à l'aise pour donner des consignes aux autres.";leadership_support;pos;15
+"J'aime apporter une aide concrète en coulisses, sans être devant.";leadership_support;neg;15
+"Je prends facilement des décisions pour le groupe quand il faut avancer.";leadership_support;pos;15
+"Je préfère qu'on me confie une mission claire plutôt que de décider pour tout le monde.";leadership_support;neg;15
+"Motiver les autres à avancer me donne de l'énergie.";leadership_support;pos;15
+"Je suis plus efficace en soutenant quelqu'un d'autre qui dirige.";leadership_support;neg;15
+"J'aime utiliser des outils numériques (ordinateur, tablette, applications) pour apprendre ou créer.";techno_manuel;pos;15
+"Je préfère travailler de mes mains : construire, réparer, fabriquer.";techno_manuel;neg;15
+"Je suis curieux(se) de comprendre comment fonctionnent les nouvelles technologies.";techno_manuel;pos;15
+"J'aime les activités où je peux toucher, assembler ou bricoler concrètement.";techno_manuel;neg;15
+"Je passe volontiers du temps à explorer un logiciel, une application ou un jeu numérique.";techno_manuel;pos;15
+"Je préfère une activité où je travaille avec mes mains plutôt qu'avec un écran.";techno_manuel;neg;15
+"J'aime apprendre à coder ou à utiliser de nouveaux outils numériques.";techno_manuel;pos;15
+"Je trouve satisfaction à fabriquer ou réparer un objet moi-même.";techno_manuel;neg;15
+"Je m'adapte vite à un nouvel outil numérique.";techno_manuel;pos;15
+"J'aime imaginer quelque chose de complètement nouveau plutôt que d'améliorer l'existant.";innovation_optim;pos;15
+"Je préfère perfectionner et rendre plus efficace ce qui existe déjà.";innovation_optim;neg;15
+"Prendre des risques pour essayer une idée neuve ne me fait pas peur.";innovation_optim;pos;15
+"Je préfère une solution éprouvée et fiable à une idée non testée.";innovation_optim;neg;15
+"J'aime remettre en question la façon habituelle de faire les choses.";innovation_optim;pos;15
+"Je cherche toujours à réduire le gaspillage de temps ou de ressources dans une tâche.";innovation_optim;neg;15
+"Je suis motivé(e) à l'idée de créer quelque chose qui n'existe pas encore.";innovation_optim;pos;15
+"J'aime organiser et optimiser un planning ou une méthode pour qu'elle soit plus efficace.";innovation_optim;neg;15

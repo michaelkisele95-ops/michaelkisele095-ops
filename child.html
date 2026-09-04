@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NEXIONE — Mon espace</title>
+<meta name="theme-color" content="#0A0A3A">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="child-shell">
+<div class="nexi-loading-overlay" id="nexiLoadingOverlay">
+  <img src="assets/nexi-mark.png" alt="" class="nexi-loading-mark">
+  <div class="nexi-loading-spinner"></div>
+  <div class="nexi-loading-text">Chargement…</div>
+</div>
+<div class="nexi-offline-banner" id="nexiOfflineBanner"></div>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/nexi-mark.png" alt="NEXI ONE">
+      <div class="brand-text">NEXIONE<span>NEXI ACADÉMIE</span></div>
+    </div>
+    <div class="who">
+      <div style="text-align:right;">
+        <div class="name" id="whoName">—</div>
+        <div class="role" id="whoRole">Élève</div>
+      </div>
+      <div class="avatar-badge" id="whoBadge">🙂</div>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn">Déconnexion</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <div id="botHero"></div>
+
+    <nav class="tile-nav dark" id="childTiles">
+      <button class="tile" data-panel="panel-defis">
+        <div class="tile-icon" id="tileIconDefis"></div>
+        <div class="tile-label">Rejoindre un défi</div>
+        <div class="tile-sub" id="tileDefisSub">—</div>
+      </button>
+      <button class="tile" data-panel="panel-affinites">
+        <div class="tile-icon" id="tileIconAff"></div>
+        <div class="tile-label">Mes Affinités</div>
+        <div class="tile-sub" id="tileAffSub">—</div>
+      </button>
+      <button class="tile" data-panel="panel-profil">
+        <div class="tile-icon">🎨</div>
+        <div class="tile-label">Mon Profil</div>
+        <div class="tile-sub">Avatar & thème</div>
+      </button>
+      <button class="tile" data-panel="panel-progression">
+        <div class="tile-icon" id="tileIconProgress"></div>
+        <div class="tile-label">Ma Progression</div>
+        <div class="tile-sub">Scores & badges</div>
+      </button>
+      <button class="tile" data-panel="panel-classement">
+        <div class="tile-icon" id="tileIconRank"></div>
+        <div class="tile-label">Classement Général</div>
+        <div class="tile-sub">Anonymisé</div>
+      </button>
+    </nav>
+
+    <!-- ============ DÉFIS ============ -->
+    <section class="panel" id="panel-defis">
+      <div class="panel-head"><div><h2>Défis disponibles</h2><p class="desc">Un défi ne peut être fait qu'une seule fois — choisis bien ton moment !</p></div></div>
+      <div class="card-grid" id="challengesList"></div>
+    </section>
+
+    <!-- ============ AFFINITÉS ============ -->
+    <section class="panel" id="panel-affinites">
+      <div class="panel-head"><div><h2>Mes Affinités Journalières</h2><p class="desc">Aucune bonne ou mauvaise réponse — sois toi-même.</p></div></div>
+      <div class="card-grid" id="affinitiesList"></div>
+    </section>
+
+    <!-- ============ EXAMEN / QUESTIONNAIRE (plein écran) ============ -->
+    <section class="panel" id="panel-exam"></section>
+
+    <!-- ============ PROFIL ============ -->
+    <section class="panel" id="panel-profil">
+      <div class="panel-head"><div><h2>Mon Profil Personnel</h2><p class="desc" id="realNameDesc">—</p></div></div>
+      <div class="card" style="max-width:520px;">
+        <h4 style="font-size:.85rem;margin-bottom:10px;">Choisis ton avatar</h4>
+        <div class="picker-grid" id="avatarPicker" style="margin-bottom:22px;"></div>
+        <h4 style="font-size:.85rem;margin-bottom:10px;">Choisis ton thème</h4>
+        <div class="picker-grid" id="themePicker" style="margin-bottom:22px;"></div>
+        <button class="btn btn-amber" id="btnSaveProfile">Enregistrer mon profil</button>
+      </div>
+      <div class="card" style="max-width:520px;margin-top:16px;" id="learningProfileBox"></div>
+    </section>
+
+    <!-- ============ PROGRESSION ============ -->
+    <section class="panel" id="panel-progression">
+      <div class="panel-head"><div><h2>Ma Progression</h2><p class="desc">Tes défis, tes scores et tes badges.</p></div></div>
+      <h4 style="font-size:.9rem;margin-bottom:10px;">Badges</h4>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:26px;" id="badgesRow"></div>
+      <h4 style="font-size:.9rem;margin-bottom:10px;">Historique des défis</h4>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Défi</th><th>Score</th><th>Date</th></tr></thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ CLASSEMENT ============ -->
+    <section class="panel" id="panel-classement">
+      <div class="panel-head"><div><h2>Classement Général</h2><p class="desc">Seul ton identifiant est visible ici — ton nom reste privé.</p></div></div>
+      <div id="leaderboardList"></div>
+    </section>
+  </main>
+</div>
+
+<script src="config.js"></script>
+<script src="js/sync.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/store.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/bot.js"></script>
+<script src="js/child.js"></script>
+<script src="js/sw-register.js"></script>
+</body>
+</html>

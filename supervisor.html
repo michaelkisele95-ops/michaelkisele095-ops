@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NEXIONE — Panel Superviseur</title>
+<meta name="theme-color" content="#0A0A3A">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="nexi-loading-overlay" id="nexiLoadingOverlay">
+  <img src="assets/nexi-mark.png" alt="" class="nexi-loading-mark">
+  <div class="nexi-loading-spinner"></div>
+  <div class="nexi-loading-text">Chargement…</div>
+</div>
+<div class="nexi-offline-banner" id="nexiOfflineBanner"></div>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/nexi-mark.png" alt="NEXI ONE">
+      <div class="brand-text">NEXIONE<span>Panel Superviseur</span></div>
+    </div>
+    <div class="who">
+      <div style="text-align:right;">
+        <div class="name" id="whoName">—</div>
+        <div class="role" id="whoRole">Superviseur</div>
+      </div>
+      <div class="avatar-badge" id="whoBadge">S</div>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn">Déconnexion</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="card" style="margin-bottom:22px;background:linear-gradient(135deg,#0B1B5C,#1447E6);color:#fff;border:none;">
+      <div style="font-size:.78rem;opacity:.8;">Bienvenue</div>
+      <h2 id="estHeadline" style="font-size:1.3rem;">—</h2>
+    </div>
+
+    <nav class="tile-nav" id="supTiles">
+      <button class="tile" data-panel="panel-mes-eleves">
+        <div class="tile-icon">🧑‍🎓</div>
+        <div class="tile-label">Mes Élèves</div>
+        <div class="tile-sub" id="statStudents">—</div>
+      </button>
+      <button class="tile" data-panel="panel-suggerer">
+        <div class="tile-icon">➕</div>
+        <div class="tile-label">Suggérer un élève</div>
+        <div class="tile-sub">Envoyer à l'admin</div>
+      </button>
+      <button class="tile" data-panel="panel-stats-ecole">
+        <div class="tile-icon">📊</div>
+        <div class="tile-label">Statistiques école</div>
+        <div class="tile-sub">Vue d'ensemble</div>
+      </button>
+    </nav>
+
+    <!-- ============ MES ÉLÈVES ============ -->
+    <section class="panel" id="panel-mes-eleves">
+      <div class="panel-head">
+        <div><h2>Mes Élèves</h2><p class="desc">Cliquez sur un élève pour voir son profil complet.</p></div>
+      </div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th></th><th>Nom</th><th>Identifiant</th><th>Classe</th><th>Statut</th><th>Score moyen</th><th>Dernière activité</th></tr></thead>
+          <tbody id="studentsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ SUGGÉRER UN ÉLÈVE ============ -->
+    <section class="panel" id="panel-suggerer">
+      <div class="panel-head"><div><h2>Suggérer un nouvel élève</h2><p class="desc">Votre suggestion sera envoyée à l'administrateur pour validation.</p></div></div>
+      <div class="card" style="max-width:460px;">
+        <div class="field"><label>Nom de l'élève</label><input type="text" id="sugName"></div>
+        <div class="field"><label>Classe</label><select id="sugClasse"></select></div>
+        <div class="field"><label>Identifiant souhaité</label><input type="text" id="sugIdentifiant"></div>
+        <button class="btn btn-primary" id="btnSendSuggestion">Envoyer la suggestion</button>
+      </div>
+    </section>
+
+    <!-- ============ STATISTIQUES ÉCOLE ============ -->
+    <section class="panel" id="panel-stats-ecole">
+      <div class="panel-head">
+        <div><h2>Statistiques de l'école</h2><p class="desc">Classement interne, forces et faiblesses de l'établissement.</p></div>
+        <div class="panel-actions">
+          <button class="btn btn-ghost" id="btnExportCSV">Export Excel (CSV)</button>
+          <button class="btn btn-ghost" id="btnExportPDF">Export PDF</button>
+        </div>
+      </div>
+      <div class="card-grid" style="margin-bottom:20px;">
+        <div class="card"><div class="field-hint">Moyenne générale école</div><div style="font-size:1.6rem;font-weight:800;" id="statAvg">—</div></div>
+        <div class="card"><div class="field-hint">Taux de participation</div><div style="font-size:1.6rem;font-weight:800;" id="statParticipation">—</div></div>
+        <div class="card"><div class="field-hint">Élèves actifs</div><div style="font-size:1.6rem;font-weight:800;" id="statActive">—</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;" id="statsColumns">
+        <div>
+          <h3 style="font-size:.95rem;margin-bottom:10px;">Classement interne</h3>
+          <div id="internalRanking"></div>
+        </div>
+        <div>
+          <h3 style="font-size:.95rem;margin-bottom:10px;">Top forces / faiblesses de l'école</h3>
+          <div id="schoolStrengths"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ============ Modale profil élève ============ -->
+<div class="modal-backdrop" id="modalStudent">
+  <div class="modal modal-lg">
+    <div class="modal-head"><h3 id="studentModalTitle">Profil élève</h3><button class="modal-close" data-close>✕</button></div>
+    <div id="studentModalBody"></div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="js/sync.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/store.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/supervisor.js"></script>
+<script src="js/sw-register.js"></script>
+</body>
+</html>

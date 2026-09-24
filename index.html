@@ -3,60 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>NEXIONE — Connexion</title>
-<meta name="description" content="NEXIONE — NEXI Académie. Portail de connexion unique.">
-<meta name="theme-color" content="#0A0A3A">
+<title>Nexi Lab — NEXI ACADEMY</title>
+<meta name="theme-color" content="#0a1628">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="assets/favicon.png">
-<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+  .login-wrap{max-width:400px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:24px;}
+  .logo-hero{width:96px;height:96px;margin:0 auto 14px;display:block;}
+  .brand-title{text-align:center;font-size:1.7rem;margin:0;}
+  .brand-sub{text-align:center;color:var(--ink-1);margin:4px 0 26px;font-size:.85rem;}
+  #installBar{display:none;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--panel-border);border-radius:var(--radius-s);padding:10px 12px;margin-bottom:18px;font-size:.82rem;}
+  #installBar button{margin-left:auto;}
+</style>
 </head>
 <body>
+<div class="molecule-bg"></div>
+<div class="login-wrap">
+  <img src="icons/logo-nexilab.svg" class="logo-hero" alt="Nexi Lab">
+  <h1 class="brand-title display">NEXI LAB</h1>
+  <p class="brand-sub">NEXI ACADEMY — Chimie &amp; Métallurgie</p>
 
-<div class="nexi-loading-overlay" id="nexiLoadingOverlay">
-  <img src="assets/nexi-mark.png" alt="" class="nexi-loading-mark">
-  <div class="nexi-loading-spinner"></div>
-  <div class="nexi-loading-text">Chargement…</div>
-</div>
-<div class="nexi-offline-banner" id="nexiOfflineBanner"></div>
-
-<div class="login-screen">
-  <div class="login-logo"><img src="assets/nexi-logo-full.png" alt="NEXI ONE — NEXI ACADEMY"></div>
-  <div class="login-card">
-    <h1>NEXIONE</h1>
-    <p class="login-sub">NEXI ACADÉMIE — connecte-toi pour continuer.</p>
-
-    <div class="login-error" id="loginError" role="alert"></div>
-
-    <form id="loginForm" novalidate>
-      <div class="field">
-        <label for="identifiant">Identifiant</label>
-        <input type="text" id="identifiant" name="identifiant" autocomplete="username" required>
-      </div>
-      <div class="field">
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password" autocomplete="current-password" required>
-      </div>
-      <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
-    </form>
-
-    <div class="login-demo" id="loginDemoBox">
-      <b>Comptes de démonstration</b> (cliquer pour préremplir) :
-      <div class="row"><span>Administrateur</span><button type="button" data-demo data-id="admin" data-pwd="admin123" class="btn btn-ghost btn-sm">admin / admin123</button></div>
-      <div class="row"><span>Superviseur école</span><button type="button" data-demo data-id="kasongo" data-pwd="sup123" class="btn btn-ghost btn-sm">kasongo / sup123</button></div>
-      <div class="row"><span>Élève</span><button type="button" data-demo data-id="grace_m" data-pwd="grace123" class="btn btn-ghost btn-sm">grace_m / grace123</button></div>
-    </div>
+  <div id="installBar">
+    <span>📲 Installe Nexi Lab pour un accès rapide.</span>
+    <button class="btn btn-primary btn-sm" id="btnInstall">Installer</button>
   </div>
+
+  <form id="loginForm" autocomplete="off">
+    <div class="field">
+      <label>Identifiant</label>
+      <input id="identifiant" required autocomplete="username">
+    </div>
+    <div class="field">
+      <label>Mot de passe</label>
+      <input id="motDePasse" type="password" required autocomplete="current-password">
+    </div>
+    <button class="btn btn-primary" type="submit" id="btnLogin">Se connecter</button>
+  </form>
 </div>
 
-<script src="config.js"></script>
-<script src="js/sync.js"></script>
-<script src="js/icons.js"></script>
-<script src="js/store.js"></script>
-<script src="js/utils.js"></script>
+<script src="js/config.js"></script>
+<script src="js/logic-core.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/sw-register.js"></script>
+<script src="js/api.js"></script>
+<script>
+  (function () {
+    const params = new URLSearchParams(location.search);
+    let adminMode = params.get("admin") === "1";
+    const title = document.querySelector(".brand-sub");
+    function applyMode() {
+      title.textContent = adminMode ? "NEXI ACADEMY — Espace administrateur" : "NEXI ACADEMY — Chimie & Métallurgie";
+      document.querySelector(".brand-title").style.color = adminMode ? "var(--gold)" : "";
+    }
+    applyMode();
+
+    // Déclencheur caché : 5 tapotements rapides sur le logo basculent le mode
+    // administrateur, sans aucun lien visible sur l'écran de connexion.
+    // (voir GUIDE_DEPLOIEMENT.md, section "Accès administrateur")
+    let tapCount = 0, tapTimer = null;
+    document.querySelector(".logo-hero").addEventListener("click", () => {
+      tapCount++;
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(() => (tapCount = 0), 1500);
+      if (tapCount >= 5) {
+        tapCount = 0;
+        adminMode = !adminMode;
+        applyMode();
+        if (navigator.vibrate) navigator.vibrate(30);
+      }
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("btnLogin");
+      btn.disabled = true; btn.textContent = "Connexion…";
+      const id = document.getElementById("identifiant").value.trim();
+      const pw = document.getElementById("motDePasse").value;
+      try {
+        const res = adminMode ? await window.NexiAPI.adminLogin(id, pw) : await window.NexiAPI.login(id, pw);
+        window.NexiAuth.setSession(res.token, res.profileSummary);
+        window.location.href = adminMode ? "admin.html" : "eleve.html";
+      } catch (err) {
+        btn.disabled = false; btn.textContent = "Se connecter";
+        alert(err.message || "Connexion impossible. Vérifie tes identifiants.");
+      }
+    });
+
+    // Redirection si déjà connecté
+    if (window.NexiAuth.isLoggedIn() && !params.get("force")) {
+      // on laisse l'utilisateur sur la page pour permettre de changer de compte,
+      // mais on propose un raccourci
+    }
+
+    // --- PWA install prompt ---
+    let deferredPrompt;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById("installBar").style.display = "flex";
+    });
+    document.getElementById("btnInstall").addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      document.getElementById("installBar").style.display = "none";
+    });
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js").catch(() => {});
+    }
+  })();
+</script>
 </body>
 </html>

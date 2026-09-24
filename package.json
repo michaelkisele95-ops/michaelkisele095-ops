@@ -1,3 +1,10 @@
 {
-    "type": "module"
+  "name": "nexi-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nexi Lab — PWA gamifiée chimie & métallurgie (NEXI ACADEMY)",
+  "scripts": {
+    "test": "node test/logic-core.test.js"
+  },
+  "license": "UNLICENSED"
 }

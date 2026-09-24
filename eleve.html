@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nexi Lab — Mon espace</title>
+<meta name="theme-color" content="#0a1628">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="molecule-bg"></div>
+<div class="app-shell">
+  <div class="topbar">
+    <img src="icons/logo-nexilab.svg" class="logo" alt="">
+    <span class="title">Nexi Lab</span>
+    <span class="nx-pill" id="nxPill">– NX</span>
+    <button class="btn btn-ghost btn-sm" id="btnLogout" style="width:auto;margin-left:8px;">⏻</button>
+  </div>
+
+  <div class="stack">
+    <section class="screen" data-screen="profil"><div id="profilContent"></div></section>
+    <section class="screen" data-screen="donjons" hidden><div id="donjonsContent"></div></section>
+    <section class="screen" data-screen="nexify" hidden><div id="nexifyContent"></div></section>
+    <section class="screen" data-screen="cartes" hidden><div id="cartesContent"></div></section>
+    <section class="screen" data-screen="classement" hidden><div id="classementContent"></div></section>
+  </div>
+
+  <nav class="tabbar">
+    <button data-target="profil" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M4 20c1.6-4 4.8-6 8-6s6.4 2 8 6"/></svg>Profil</button>
+    <button data-target="donjons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg>Donjons</button>
+    <button data-target="nexify"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="10" height="14" rx="2"/><rect x="10" y="7" width="10" height="14" rx="2"/></svg>Nexify</button>
+    <button data-target="cartes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>Cartes</button>
+    <button data-target="classement"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V10M12 21V4M20 21v-7"/></svg>Classement</button>
+  </nav>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/logic-core.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/api.js"></script>
+<script src="js/nexibot.js"></script>
+<script src="js/eleve.js"></script>
+</body>
+</html>
